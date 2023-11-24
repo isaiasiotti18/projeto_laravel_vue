@@ -10,22 +10,13 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\FornecedoresController;
 use App\Http\Controllers\ProdutosController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::fallback(function() {
   echo 'Not found. <a href="/">Clique aqui</a> para retornar a página principal.';
 });
 
 Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
+Route::get('/view/{codigo}', [PrincipalController::class, 'viewPrincipal'])->name('site.view');
+
 Route::get('/sobre-nos', [SobrenosController::class, 'sobrenos'])->name('site.sobrenos');
 Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
 Route::get('/login', [LoginController::class, 'login'])->name('site.login');
