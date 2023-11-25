@@ -10,6 +10,7 @@ class PrincipalController extends Controller
         return view("site.principal");
     }
 
+    /*
     public function viewPrincipal(string $cliente, int $codigo) {
       // return view("site.view", ['codigo' => $codigo]); // array associativo
 
@@ -19,4 +20,5 @@ class PrincipalController extends Controller
         ->with('codigo', $codigo)
         ->with('cliente', $cliente);
     }
+    */
 }
