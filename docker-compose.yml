@@ -1,0 +1,35 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  db_projeto_laravel_vue:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: isaias93986525
+      MYSQL_DATABASE: db_projeto_laravel_vue
+      MYSQL_USER: isaiasiotti
+      MYSQL_PASSWORD: isaias93986525
+    ports:
+      - "3308:3306"
+    networks:
+      - mysql-phpmyadmin
+
+  db_projeto_laravel_vue_phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - db_projeto_laravel_vue
+    restart: always
+    ports:
+      - "8090:80"
+    environment:
+      PMA_HOST: db_projeto_laravel_vue
+      MYSQL_ROOT_PASSWORD: isaias93986525
+    networks:
+      - mysql-phpmyadmin
+
+networks:
+  mysql-phpmyadmin:
+
