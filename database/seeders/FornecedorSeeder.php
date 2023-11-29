@@ -1,0 +1,40 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Fornecedor;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+class FornecedorSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+      $fornecedor = new Fornecedor();
+
+      // $fornecedor->save([
+      //   "nome" => "Novo fornecedor 01",
+      //   "site" => "novofornecedor01.com.br",
+      //   "uf" => "CE",
+      //   "email" => "novofornecedor01@novofornecedor01.com.br"
+      // ]);
+
+      Fornecedor::create([
+        "nome" => "Novo fornecedor 02",
+        "site" => "novofornecedor02.com.br",
+        "uf" => "CE",
+        "email" => "novofornecedor02@novofornecedor02.com.br"
+      ]);
+
+      DB::table("fornecedores")->insert([
+        "nome" => "Novo fornecedor 032",
+        "site" => "novofornecedor032.com.br",
+        "uf" => "CE",
+        "email" => "novofornecedor032@novofornecedor032.com.br"
+      ]);
+    }
+}

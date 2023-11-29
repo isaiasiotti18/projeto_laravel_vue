@@ -1,0 +1,39 @@
+\App\Models\Fornecedor::create(
+  [
+    'nome'=>'ISASANTOSLOG',
+    'site'=>'isasantoslog.com.br',
+    'uf'=>'SP',
+    'email'=>'comercial@isasantoslog.com.br'
+  ]
+);
+
+App\Models\SiteContato::all();
+
+App\Models\SiteContato::whereNotnull('updated_at')->orWhereNull('created_at')->get();
+
+App\Models\SiteContato::whereDate('created_at', '2020-08-31')->get();
+
+App\Models\SiteContato::whereDay('created_at', '31')->get();
+
+App\Models\SiteContato::whereMonth('created_at', '08')->get();
+
+App\Models\SiteContato::whereYear('created_at', '2020')->get();
+
+App\Models\SiteContato::whereColumn('', ,'<>', '')->get();
+
+App\Models\SiteContato::orderBy('nome')->get();
+
+App\Models\SiteContato::orderBy('nome', 'desc')->get();
+
+<!-- Collections --!>
+https://laravel.com/docs/10.x/collections
+
+App\Models\SiteContato::orderBy('motivo_contato', 'asc')->orderBy('nome', 'desc')->get();
+
+App\Models\SiteContato::all()->toJson();
+
+App\Models\SiteContato::all()->toJArray();
+
+App\Models\SiteContato::all()->pluck('email');
+
+App\Models\SiteContato::all()->pluck('email', 'nome');
