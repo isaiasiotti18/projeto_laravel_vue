@@ -13,15 +13,15 @@ return new class extends Migration
     public function up(): void
     {
       Schema::table('site_contatos', function (Blueprint $table) {
-        $table->unsignedBigInteger('motivo_contatos_id')->after('id');
+        $table->unsignedBigInteger('motivo_contato_id')->after('id');
       });
 
       //Executar um SQL dentro do banco de dados da conexão
-      DB::statement('update site_contatos set motivo_contatos_id = motivo_contato');
+      DB::statement('update site_contatos set motivo_contato_id = motivo_contato');
 
       // Criando fk
       Schema::table('site_contatos', function (Blueprint $table) {
-        $table->foreign('motivo_contatos_id')->references('id')->on('motivo_contatos');
+        $table->foreign('motivo_contato_id')->references('id')->on('motivo_contatos');
         $table->dropColumn('motivo_contato');
       });
     }
@@ -36,10 +36,10 @@ return new class extends Migration
         $table->dropForeign('site_contatos_motivo_contatos_id_foreign');
       });
 
-      DB::statement('update site_contatos set motivo_contato = motivo_contatos_id');
+      DB::statement('update site_contatos set motivo_contato = motivo_contato_id');
 
       Schema::table('site_contatos', function (Blueprint $table) {
-        $table->dropColumn('motivo_contatos_id');
+        $table->dropColumn('motivo_contato_id');
       });
     }
 };

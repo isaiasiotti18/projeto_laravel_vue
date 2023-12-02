@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PrincipalController;
@@ -16,16 +17,24 @@ Route::fallback(function() {
 
 
 Route::prefix('site')->group(function() {
-  Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
+
+  Route::middleware(LogAcessoMiddleware::class)
+    ->get('/', [PrincipalController::class, 'principal'])
+    ->name('site.index');
+
+  Route::middleware(LogAcessoMiddleware::class)
+    ->get('/contato', [ContatoController::class, 'contato'])
+    ->name('site.contato');
+
+  Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato.post');
+
   Route::get('/sobre-nos', [SobrenosController::class, 'sobrenos'])->name('site.sobrenos');
-
-  Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
-  Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato');
-
-  Route::get('/login', [LoginController::class, 'login'])->name('site.login');
 });
 
 Route::prefix('/app')->group(function () {
+
+  Route::get('/login', [LoginController::class, 'login'])->name('app.login');
+
   Route::prefix('/fornecedores')->group(function () {
     Route::get('/home', [FornecedorController::class, 'index'])->name('app.fornecedor.index');
     Route::get('/view', [FornecedorController::class, 'view'])->name('app.fornecedor.view');
