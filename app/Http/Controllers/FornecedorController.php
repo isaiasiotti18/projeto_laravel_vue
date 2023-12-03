@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Middleware\LogAcessoMiddleware;
 
 class FornecedorController extends Controller {
-  public function index() {
-    return view("app.fornecedor.index");
+
+  public function __construct() {
+    $this->middleware(LogAcessoMiddleware::class);
   }
 
   public function view() {

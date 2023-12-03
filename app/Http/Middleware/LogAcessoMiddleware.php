@@ -18,12 +18,11 @@ class LogAcessoMiddleware
   {
 
     $clientIpAddress = $request->getClientIp();
-    $requestRoute = $request->route()->getName();
     $dateAndHours = now()->format("d-m-Y, H:i:s");
     $requestUri = $request->getRequestUri();
 
     LogAcesso::create([
-      "log" => "IP: $clientIpAddress | ROUTE NAME: $requestRoute | DATE HOUR $dateAndHours | REQUEST URI $requestUri"
+      "log" => "IP: $clientIpAddress | DATE HOUR $dateAndHours | REQUEST URI $requestUri"
     ]);
 
     return $next($request);

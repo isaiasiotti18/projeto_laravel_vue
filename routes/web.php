@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PrincipalController;
@@ -15,25 +14,21 @@ Route::fallback(function() {
   echo 'Not found. <a href="/">Clique aqui</a> para retornar a página principal.';
 });
 
+Route::get('/auth/login', [LoginController::class, 'login'])->name('auth.login');
+Route::get('/auth/login', [LoginController::class, 'login'])->name('auth.login.post');
 
 Route::prefix('site')->group(function() {
 
-  Route::middleware(LogAcessoMiddleware::class)
-    ->get('/', [PrincipalController::class, 'principal'])
-    ->name('site.index');
+  Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
 
-  Route::middleware(LogAcessoMiddleware::class)
-    ->get('/contato', [ContatoController::class, 'contato'])
-    ->name('site.contato');
+  Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
 
   Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato.post');
 
   Route::get('/sobre-nos', [SobrenosController::class, 'sobrenos'])->name('site.sobrenos');
 });
 
-Route::prefix('/app')->group(function () {
-
-  Route::get('/login', [LoginController::class, 'login'])->name('app.login');
+Route::prefix('/app')->middleware('app.authenticate')->group(function () {
 
   Route::prefix('/fornecedores')->group(function () {
     Route::get('/home', [FornecedorController::class, 'index'])->name('app.fornecedor.index');
