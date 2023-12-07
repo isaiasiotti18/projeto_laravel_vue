@@ -1,4 +1,4 @@
-@extends('site.layouts.basic')
+@extends('layouts.basic')
 
 @section('titulo', 'Login')
 
@@ -6,13 +6,26 @@
 
 <div class="conteudo-pagina">
   <div class="titulo-pagina">
-    <h1>Login</h1>
+    <h1 style="">Login</h1>
   </div>
 
   <div class="informacao-pagina">
-    <form action="{{ route('auth.login.post') }}" method="post">
-      @csrf
-    </form>
+    <div style="width: 30%; margin-left: auto; margin-right: auto;">
+      <form action="{{ route('auth.login') }}" method="post">
+        @csrf
+        <input type="text" name="email" value="{{ old('email')}}" id="" placeholder="Usuário" class="borda-preta"/>
+        {{ $errors->has('email') ? $errors->first('email') : '' }}
+
+        <input type="password" name="password" value="{{ old('password')}}" id="" placeholder="password" class="borda-preta"/>
+        {{ $errors->has('password') ? $errors->first('password') : '' }}
+
+        <button type="submit" class="borda-preta">
+          Acessar
+        </button>
+      </form>
+      <br>
+      {{ isset($erro) && $erro != '' ? $erro : '' }}
+    </div>
   </div>
 </div>
 

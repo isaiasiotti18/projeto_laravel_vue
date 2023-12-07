@@ -2,20 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\PrincipalController;
-use App\Http\Controllers\SobrenosController;
-use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ClientesController;
-use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\SobrenosController;
+use App\Http\Controllers\PrincipalController;
+use App\Http\Controllers\FornecedorController;
 
 Route::fallback(function() {
-  echo 'Not found. <a href="/">Clique aqui</a> para retornar a página principal.';
+  echo 'Not found. <a href="/site/">Clique aqui</a> para retornar a página principal.';
 });
 
-Route::get('/auth/login', [LoginController::class, 'login'])->name('auth.login');
-Route::get('/auth/login', [LoginController::class, 'login'])->name('auth.login.post');
+Route::redirect('/', "/site");
+
+Route::get('/auth/login/{erro?}', [LoginController::class, 'index'])->name('auth.login');
+Route::post('/auth/login', [LoginController::class, 'login'])->name('auth.login');
 
 Route::prefix('site')->group(function() {
 
@@ -29,13 +32,10 @@ Route::prefix('site')->group(function() {
 });
 
 Route::prefix('/app')->middleware('app.authenticate')->group(function () {
-
-  Route::prefix('/fornecedores')->group(function () {
-    Route::get('/home', [FornecedorController::class, 'index'])->name('app.fornecedor.index');
-    Route::get('/view', [FornecedorController::class, 'view'])->name('app.fornecedor.view');
-  });
-
-  Route::get('/produtos', [ProdutosController::class, 'index'])->name('app.produtos');
-  Route::get('/clientes', [ClientesController::class, 'index'])->name('app.clientes');
+  Route::get('/home', [HomeController::class, 'index'])->name('app.home');
+  Route::get('/sair', [LoginController::class, 'sair'])->name('app.sair');
+  Route::get('/fornecedor', [FornecedorController::class, 'index'])->name('app.fornecedor');
+  Route::get('/produto', [ProdutosController::class, 'index'])->name('app.produto');
+  Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
 });
 

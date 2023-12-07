@@ -11,12 +11,7 @@ class FornecedorController extends Controller {
     $this->middleware(LogAcessoMiddleware::class);
   }
 
-  public function view() {
-
-    $fornecedores = ['Fornecedor 01'];
-
-    $fornecedores_honda = [];
-
-    return view("app.fornecedor.view", compact("fornecedores", "fornecedores_honda"));
+  public function index() {
+    return view("app.fornecedor");
   }
 }
