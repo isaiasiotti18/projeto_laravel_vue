@@ -34,7 +34,21 @@ Route::prefix('site')->group(function() {
 Route::prefix('/app')->middleware('app.authenticate')->group(function () {
   Route::get('/home', [HomeController::class, 'index'])->name('app.home');
   Route::get('/sair', [LoginController::class, 'sair'])->name('app.sair');
-  Route::get('/fornecedor', [FornecedorController::class, 'index'])->name('app.fornecedor');
+
+  Route::prefix('/fornecedor')->group(function() {
+    Route::get('/', [FornecedorController::class, 'index'])->name('app.fornecedor');
+
+    Route::get('/adicionar', [FornecedorController::class, 'adicionar'])->name('app.fornecedor.adicionar');
+    Route::post('/adicionar', [FornecedorController::class, 'adicionar'])->name('app.fornecedor.adicionar');
+
+    Route::post('/listar', [FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+
+    Route::get('/editar/{id}', [FornecedorController::class, 'editar'])->name('app.fornecedor.editar');
+
+    Route::get('/excluir/{id}', [FornecedorController::class, 'excluir'])->name('app.fornecedor.excluir');
+  });
+
+
   Route::get('/produto', [ProdutosController::class, 'index'])->name('app.produto');
   Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
 });
