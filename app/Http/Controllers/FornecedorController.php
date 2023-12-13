@@ -27,13 +27,16 @@ class FornecedorController extends Controller {
       ->where("site", "like", "%$siteFornecedor%")
       ->where("uf", "like", "%$ufFornecedor%")
       ->where("site", "like", "%$siteFornecedor%")
-      ->get();
+      ->simplePaginate(2);
 
-    return view('app.fornecedor.listar', ['fornecedores' => $fornecedores]);
-    }
+    return view('app.fornecedor.listar', [
+      'fornecedores' => $fornecedores,
+      'request' => $request->all()
+    ]);
+  }
 
   public function adicionar(Request $request) {
-    if($request->input("_token") != "") {
+    if($request->input("_token") != "" && $request->input('id') == '') {
       $rules = [
         "nome"=> "required|min:3|max:40",
         "site"=> "required",
@@ -57,13 +60,32 @@ class FornecedorController extends Controller {
       $fornecedor->create($request->all());
     }
 
+    if($request->input("_token") != "" && $request->input('id') != '') {
+      $fornecedorUpdate = Fornecedor::find($request->input('id'));
+      $update = $fornecedorUpdate->update($request->all());
+
+      if($update) {
+        $msg = 'Alteração realizada com sucesso.';
+      } else {
+        $msg = 'Falha na alteração';
+      }
+
+      return redirect()->route('app.fornecedor.editar', ['id' => $request->input('id'),  'msg' => $msg]);
+    }
+
     return view("app.fornecedor.adicionar");
   }
 
   public function editar($id) {
-    return view('app.fornecedor.editar');
+
+    $fornecedor = Fornecedor::find($id);
+    return view('app.fornecedor.adicionar', ['fornecedor' => $fornecedor]);
   }
   public function excluir($id) {
-    return view('app.fornecedor.excluir');
+
+    $fornecedor = Fornecedor::find($id)->delete();
+
+    return redirect()->back()->with('alert', 'Registro excluido com sucesso!');
+
   }
 }

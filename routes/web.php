@@ -42,10 +42,11 @@ Route::prefix('/app')->middleware('app.authenticate')->group(function () {
     Route::post('/adicionar', [FornecedorController::class, 'adicionar'])->name('app.fornecedor.adicionar');
 
     Route::post('/listar', [FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+    Route::get('/listar', [FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
 
-    Route::get('/editar/{id}', [FornecedorController::class, 'editar'])->name('app.fornecedor.editar');
+    Route::get('/editar/{id}/{msg?}', [FornecedorController::class, 'editar'])->name('app.fornecedor.editar');
 
-    Route::get('/excluir/{id}', [FornecedorController::class, 'excluir'])->name('app.fornecedor.excluir');
+    Route::get('/excluir/{id}/{msg?}', [FornecedorController::class, 'excluir'])->name('app.fornecedor.excluir');
   });
 
 

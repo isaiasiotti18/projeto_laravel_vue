@@ -43,8 +43,23 @@
             @endif
           </tbody>
         </table>
-      </div>
+        <br>
+        {{ $fornecedores->appends($request)->links() }}
+        <br>
+        {{ $fornecedores->count() }} Total de registros por página.
+        <br>
+        {{ $fornecedores->firstItem() }} Número do primeiro registro da página
+        <br>
+        {{ $fornecedores->lastItem() }} Número do último registro da página
     </div>
 
   </div>
+
+  <script>
+    var msg = '{{Session::get('alert')}}';
+    var exist = '{{Session::has('alert')}}';
+    if(exist){
+      alert(msg);
+    }
+  </script>
 @endsection
