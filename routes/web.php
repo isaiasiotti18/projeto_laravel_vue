@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\SobrenosController;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\FornecedorController;
@@ -50,7 +50,9 @@ Route::prefix('/app')->middleware('app.authenticate')->group(function () {
   });
 
 
-  Route::get('/produto', [ProdutosController::class, 'index'])->name('app.produto');
+  // -- Rota Produtos
+  Route::resource('produto', ProdutoController::class);
+
   Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
 });
 
