@@ -23,8 +23,8 @@
               <th>Descrição</th>
               <th>Peso</th>
               <th>Unidade</th>
-              <th>Excluir</th>
-              <th>Editar</th>
+              <th>Visualizar</th>
+              <th colspan="col">Ações</th>
             </tr>
           </thead>
 
@@ -36,8 +36,17 @@
                   <td>{{ $produto->descricao }}</td>
                   <td>{{ $produto->peso }}</td>
                   <td>{{ $produto->unidade_id }}</td>
-                  {{-- <td><a href="{{ route('app.produto.destroy', $fornecedor->id)}}">Excluir</a></td>
-                  <td><a href="{{ route('app.produto.edit', $fornecedor->id)}}">Editar</a></td> --}}
+                  <td><a href="{{ route('produto.show', ['produto' => $produto->id]) }}">Visualizar</a></td>
+                  <td>
+                    <form id="form_{{$produto->id}}" name="formDelete" class="form-inline" action="{{ route('produto.destroy', $produto->id)}}" method="post">
+                      @csrf
+                      @method("DELETE")
+
+                      {{-- <button class="btnExcluir" type="submit">Excluir</button> --}}
+                    </form>
+                    <a href="#" onclick="document.getElementById('form_{{$produto->id}}').submit()" class="inlineA" href="{{ route('produto.edit', $produto->id)}}">Excluir | </a>
+                    <a class="inlineA" href="{{ route('produto.edit', $produto->id)}}">Editar</a>
+                  </td>
                 </tr>
               @endforeach
             @endif
@@ -63,4 +72,45 @@
       alert(msg);
     }
   </script>
+
+  <style>
+    .form-inline {
+      display: inline-block
+    }
+
+    /* .inlineA {
+      display: inline;
+    } */
+
+    .btnExcluir {
+      font-size: 16px;
+      background-color: transparent;
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      outline: none;
+      color: black
+    }
+
+    .btnExcluir:hover {
+      background-color: transparent;
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      outline: none;
+      color: cadetblue;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+      font-size: 16px;
+    }
+
+    a:hover {
+      color: cadetblue;
+    }
+  </style>
 @endsection
