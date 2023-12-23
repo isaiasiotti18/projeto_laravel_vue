@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\ProdutoDetalhe;
+use App\Models\ItemDetalhe;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Produto extends Model
+class Item extends Model
 {
   use HasFactory;
 
@@ -15,6 +14,6 @@ class Produto extends Model
   protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id'];
 
   public function produtoDetalhe() {
-    return $this->hasOne(ProdutoDetalhe::class);
+    return $this->hasOne(ItemDetalhe::class, 'produto_id', 'id');
   }
 }

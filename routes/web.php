@@ -10,6 +10,7 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\SobrenosController;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\ProdutoDetalheController;
 
 Route::fallback(function() {
   echo 'Not found. <a href="/site/">Clique aqui</a> para retornar a página principal.';
@@ -52,6 +53,8 @@ Route::prefix('/app')->middleware('app.authenticate')->group(function () {
 
   // -- Rota Produtos
   Route::resource('produto', ProdutoController::class);
+
+  Route::resource('produto-detalhe', ProdutoDetalheController::class);
 
   Route::get('/cliente', [ClienteController::class, 'index'])->name('app.cliente');
 });
