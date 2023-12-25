@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
-use App\Models\ProdutoDetalhe;
 use App\Models\Unidade;
+use App\Models\Fornecedor;
 use Illuminate\Http\Request;
+use App\Models\ProdutoDetalhe;
 
 class ProdutoController extends Controller
 {
@@ -47,7 +48,12 @@ class ProdutoController extends Controller
     public function create()
     {
       $unidades = Unidade::all();
-      return view('app.produto.create', ['unidades' => $unidades]);
+      $fornecedores = Fornecedor::all();
+
+      return view('app.produto.create', [
+        'unidades' => $unidades,
+        'fornecedores' => $fornecedores,
+      ]);
     }
 
     /**
@@ -94,9 +100,11 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
       $unidades = Unidade::all();
+      $fornecedores = Fornecedor::all();
       return view('app.produto.edit', [
         'unidades' => $unidades,
-        'produto' => $produto
+        'produto' => $produto,
+        'fornecedores' => $fornecedores
       ]);
     }
 
@@ -105,6 +113,7 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, Produto $produto)
     {
+
       $produto->update($request->all());
 
       return redirect()->route ('produto.show', ['produto' => $produto->id]);
