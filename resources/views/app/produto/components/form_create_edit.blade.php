@@ -21,6 +21,17 @@
     placeholder="Peso">
   {{ $errors->has('peso') ? $errors->first('peso') : '' }}
 
+  <select name="fornecedor_id">
+    <option disabled>-- Selecione um Fornecedor --</option>
+    @foreach ($fornecedores as $fornecedor)
+    <option
+      value="{{ $fornecedor->id }}" {{ ($produto->fornecedor_id ??
+        old('fornecedor_id')) == $fornecedor->id ? 'selected' : '' }} >{{ $fornecedor->nome }}
+    </option>
+    @endforeach
+  </select>
+  {{ $errors->has('fornecedor_id') ? $errors->first('fornecedor_id') : '' }}
+
   <select name="unidade_id">
     <option selected disabled>-- Selecione a Unidade de Medida --</option>
     @foreach ($unidades as $unidade)

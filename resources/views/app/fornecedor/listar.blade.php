@@ -23,8 +23,7 @@
               <th>Site</th>
               <th>UF</th>
               <th>E-mail</th>
-              <th></th>
-              <th></th>
+              <th colspan="2">Ações</th>
             </tr>
           </thead>
 
@@ -38,6 +37,32 @@
                   <td>{{ $fornecedor->email }}</td>
                   <td><a href="{{ route('app.fornecedor.excluir', $fornecedor->id)}}">Excluir</a></td>
                   <td><a href="{{ route('app.fornecedor.editar', $fornecedor->id)}}">Editar</a></td>
+                </tr>
+
+                <tr>
+                  <td align="center" colspan="6">
+                    <p>Lista de produtos</p>
+                    <table border="1" @style(["margin:20px;"])>
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Nome</th>
+                          <th>Descrição</th>
+                          <th>Peso</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($fornecedor->produtos as $produto)
+                          <tr>
+                            <td>{{ $produto->id }}</td>
+                            <td>{{ $produto->nome }}</td>
+                            <td>{{ $produto->descricao }}</td>
+                            <td>{{ $produto->peso }}</td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </td>
                 </tr>
               @endforeach
             @endif
@@ -62,4 +87,10 @@
       alert(msg);
     }
   </script>
+
+  <style>
+    td, tr, th {
+      padding: 5px;
+    }
+  </style>
 @endsection

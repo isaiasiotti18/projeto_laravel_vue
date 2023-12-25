@@ -18,7 +18,8 @@
         <p>{{ $msg ?? '' }}</p>
         @component('app.produto.components.form_create_edit', [
           'unidades' => $unidades,
-          'produto' => $produto
+          'produto' => $produto,
+          'fornecedores' => $fornecedores
         ])
         @endcomponent
       </div>

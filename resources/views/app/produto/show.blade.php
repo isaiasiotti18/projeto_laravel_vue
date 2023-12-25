@@ -43,6 +43,11 @@
             <td>Unidade: </td>
             <td>{{ $produto->unidade_id }}</td>
           </tr>
+
+          <tr>
+            <td>Fornecedor: </td>
+            <td>{{ $produto->fornecedor->nome }}</td>
+          </tr>
         </table>
       </div>
 

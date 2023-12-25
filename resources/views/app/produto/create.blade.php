@@ -21,7 +21,10 @@
       <div style="width: 30%; margin-left: auto; margin-right: auto;">
         <p>{{ $msg ?? '' }}</p>
 
-        @component('app.produto.components.form_create_edit', ['unidades' => $unidades])
+        @component('app.produto.components.form_create_edit', [
+          'unidades' => $unidades,
+          'fornecedores' => $fornecedores
+        ])
         @endcomponent
 
       </div>
