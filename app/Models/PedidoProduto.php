@@ -12,4 +12,6 @@ class PedidoProduto extends Model
   protected $table = 'pedidos_produtos';
 
 
+
+
 }
