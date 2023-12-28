@@ -66,7 +66,12 @@ Route::prefix('/app')->middleware('app.authenticate')->group(function () {
   Route::resource('pedido', PedidoController::class);
 
   // -- Rota Pedido Produtos
-  Route::resource('pedido-produto', PedidoProdutoController::class);
+  // Route::resource('pedido-produto', PedidoProdutoController::class);
+
+  Route::prefix('pedido-produto')->group(function() {
+    Route::get('/create/{pedido}', [PedidoProdutoController::class, 'create'])->name('pedido-produto.create');
+    Route::post('/store/{pedido}', [PedidoProdutoController::class, 'store'])->name('pedido-produto.store');
+  });
 
 });
 

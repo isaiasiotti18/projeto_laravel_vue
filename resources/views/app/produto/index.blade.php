@@ -55,6 +55,17 @@
                     <a href="#" onclick="document.getElementById('form_{{$produto->id}}').submit()" class="inlineA" href="{{ route('produto.edit', $produto->id)}}">Excluir | </a>
                     <a class="inlineA" href="{{ route('produto.edit', $produto->id)}}">Editar</a>
                   </td>
+
+                  <tr>
+                    <td colspan="12">
+                      <p>Pedidos</p>
+                      @foreach ($produto->pedidos as $pedido)
+                        <a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">
+                          Pedido: {{ $pedido }} <br><br>
+                        </a>
+                      @endforeach
+                    </td>
+                  </tr>
                 </tr>
               @endforeach
             @endif
